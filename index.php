@@ -1,3 +1,9 @@
+<?php session_start(); ?>
+<?php 
+	if(isset($_POST['email'])){
+		$_SESSION['email'] = $_POST['email'];
+	}
+?>
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -9,23 +15,31 @@
 </head> 
 <body> 
 	<div class="input">
-		<form>
-			<div class="label">Enter your Email ID to Start Contributing </div>
-			<input type="text" class="text" />
-			<input type="submit" class="start" value="Start"/>
-		</form>
+		<?php 
+			if(!isset($_SESSION['email'])){
+				?>
+				<form action="index.php" method="post">
+					<div class="label">Enter your Email ID to Start Contributing </div>
+					<input name="email" type="text" class="text" />
+					<input type="submit" class="start" value="Start"/>
+				</form>
+				<?php
+			}
+			else{
+				?>
+				<form>
+					<div class="label">Add New Note </div>
+						<div id="note_elements">
+							<textarea class="text" rows="3"> </textarea>
+							<a href="#">
+								<img id="addItem" src="images/add.png" border="0"/>
+							</a>
+						</div>
+				</form>
+				<?php
+			}
+		?>
 	</div>
-	
-	<div class="input">
-		<form>
-			<div class="label">Add New Note </div>
-					<textarea class="text" rows="3"> </textarea>
-					<a href="#">
-						<img id="addItem" src="images/add.png" border="0"/>
-					</a>
-		</form>
-	</div>
-	
 	<div id="container">
 	<div class="item">
 		<div class="feature">
