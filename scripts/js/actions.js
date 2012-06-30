@@ -11,12 +11,22 @@ function Board() {
 	
 	function add(){
 		$('#addItem').click(function(){
-      		var $boxes = $('<div class="item">adasd </div>');
-      		container.prepend( $boxes ).masonry( 'reload' );
-			//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
+           $('#inputArea').hide();
+           $('#loadingNewNoteArea').show();
+             $.ajax({
+                        async:true,
+                        url:'add-notes.php?BoardId=' + boardId + '&AddedBy=' + emailId + '&Content=' + $('#note').val(),
+                        success:function(data){
+           					$('#loadingNewNoteArea').hide();
+                            $('#inputArea').show();
+           					var $note = $(data);
+      						container.prepend( $note ).masonry( 'reload' );
+							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
+                        }
+             });
     	});
 	}
-		
+	
 	return {
 		init: init
 	}   
