@@ -3,3 +3,83 @@ body {
 	padding: 0;
 	background: url(../../images/bg.jpg) repeat;
 }
+
+.input{
+	background-color: #c6fab8;
+	padding: 10px;
+  	width: 400px;
+  	margin-top: 25px;
+	margin-left: auto; 
+	margin-right: auto;
+	text-align: center;
+}
+
+.text{
+	background-color: white;
+	border: 1px solid #DDD;
+	border-top: 1px solid #CDCDCD;
+	padding: 10px;
+  	width: 250px;
+	font-size: 16px;
+	font-family: verdana,arial;
+	margin-right: 10px;
+}
+
+.label{
+	color: #000000;
+	text-align: left;
+	padding: 10px;
+	font-size: 100%;
+	font-weight: bold;
+	font-family: verdana,arial;
+}
+
+.start{
+	background-color: #008000;
+	color: #FFFFFF;
+	font-size: 16px;
+	border: 1px solid #FFFFFF;
+	padding: 10px;
+	width: 100px;
+}
+
+.add{
+	background-color: #008000;
+	color: #FFFFFF;
+	font-size: 16px;
+	border: 1px solid #FFFFFF;
+	padding: 10px;
+	width: 100px;
+}
+
+.item{
+	background-color: #fef49c;
+	padding: 10px;
+	width: 280px;
+  	margin: 10px;
+  	float: left;
+}
+
+.item .feature{
+	font-weight: bold;
+	text-align: justify;
+	font-family: verdana,arial;
+}
+
+.item .votes{
+	text-align: left;
+}
+
+.item .votes span{
+	font-weight: bold;
+	color: #008000;
+}
+
+.item .choice{
+	text-align: center;
+}
+
+.item .choice select {
+	width: 100%;
+}
+
