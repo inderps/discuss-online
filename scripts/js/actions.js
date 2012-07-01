@@ -15,12 +15,12 @@ function Board() {
            $('#loadingNewNoteArea').show();
              $.ajax({
                         async:true,
+        				dataType: "json",
                         url:'add-notes.php?BoardId=' + boardId + '&AddedBy=' + emailId + '&Content=' + $('#note').val(),
                         success:function(data){
            					$('#loadingNewNoteArea').hide();
                             $('#inputArea').show();
-           					var $note = $(data);
-      						container.prepend( $note ).masonry( 'reload' );
+      						container.prepend(CreateItem(data, emailId)).masonry( 'reload' );
 							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
                         }
              });
