@@ -32,12 +32,18 @@ class Service {
 		return new Notes(mysql_insert_id(), $content, $addedOn, $addedBy, $boardId, 0);
 	}
 	
-	function GetAllNotes($boardId, $user){
+	function GetAllNotes($boardId, $user, $timeStamp){
 		$notes = null;
-		$query = "SELECT Id, Content FROM notes where BoardId = " . $boardId . " order by AddedOn desc";
+		$timeStampCondition = '';
+		if($timeStamp!=null){
+			$timeStampCondition = " and n.AddedOn > '" . $timeStamp . "' ";
+		}		
+		
+		$query = "SELECT n.Id, n.Content FROM notes n where n.BoardId = " . $boardId ;
 		if($user != NULL){
-			$query = "SELECT n.Id, n.Content, v.RequirementId FROM notes n LEFT JOIN votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId . " order by n.AddedOn desc";
+			$query = "SELECT n.Id, n.Content, v.RequirementId FROM notes n LEFT JOIN votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId;
 		}
+		$query = $query . $timeStampCondition . ' order by n.AddedOn desc';
 		$result = $this->dB->RetreiveQ($query);
 		$count = 0;
 		while ($row = mysql_fetch_array($result)) {

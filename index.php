@@ -15,6 +15,7 @@
 <script type="text/javascript">
 	var emailId = null;
 	var boardId = '<?php echo $_GET['id']; ?>';
+	var timeStamp = null;
 </script>
 </head> 
 <body> 
@@ -22,7 +23,7 @@
 		<?php 
 			if(!isset($_SESSION['email'])){
 				?>
-				<form action="index.php" method="post">
+				<form action="" method="post">
 					<div class="label">Enter your Email ID to Start Contributing </div>
 					<input name="email" type="text" class="text" />
 					<input type="submit" class="start" value="Start"/>

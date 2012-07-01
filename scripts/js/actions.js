@@ -42,13 +42,19 @@ $(document).ready(function () {
 function update(){
 		$.ajax({
                         async:true,
-                        url:'reload.php?BoardId=' + boardId + '&loggedInUser=' + emailId,
+                        url:'reload.php?BoardId=' + boardId + '&loggedInUser=' + emailId + '&timeStamp=' + timeStamp,
                         success:function(data){
            					var notes = $(data);
-           					$('#container').html(notes);
-      						$('#container').masonry( 'reload' );
+           					$('#container').prepend(notes).masonry( 'reload' );
 							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
                         }
         });
+        var now = new Date();
+        timeStamp = now.getFullYear() 
+        			+ '-' + (now.getMonth() + 1)
+        			+ '-' + now.getDate()
+        			+ ' ' + now.getHours() 
+        			+ ':' + now.getMinutes()
+        			+ ':' + now.getSeconds();
    		setTimeout("update()", 3000);
 } 
