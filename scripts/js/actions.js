@@ -32,6 +32,7 @@ function Board() {
 	function vote(){
 		$('.voteDropdown').change(function(e){
 			var noteId = $(this).attr('id').replace('voteDropdown','');
+			$('#item' + noteId).addClass('item color' + $(this).val());
 			$.ajax({
                         async:true,
         				dataType: "json",
