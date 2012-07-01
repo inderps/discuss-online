@@ -15,7 +15,6 @@
 <script type="text/javascript">
 	var emailId = null;
 	var boardId = '<?php echo $_GET['id']; ?>';
-	var timeStamp = null;
 </script>
 </head> 
 <body> 

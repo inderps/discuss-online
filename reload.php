@@ -2,20 +2,15 @@
 include("service.php");
 $service = new Service();
 $user = $_GET['loggedInUser'];
-$timeStamp = $_GET['timeStamp'];
 $isGuest = true;
 if($user!='null'){
 	$isGuest = false;
 }
 
-if($timeStamp == 'null'){
-	$timeStamp = null;
-}
-$notes = $service->GetAllNotes(1, $user, $timeStamp);
+$notes = $service->GetAllNotes(1, $user);
 // echo "<div class='item'>" . $user .  "</div>";
+$data->notes = $notes;
 if($notes!=null){
-	foreach ($notes as $note) {
-	include("_item.php");
-	}
+	echo json_encode($data);
 }
 ?>

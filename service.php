@@ -32,23 +32,21 @@ class Service {
 		return new Notes(mysql_insert_id(), $content, $addedOn, $addedBy, $boardId, 0);
 	}
 	
-	function GetAllNotes($boardId, $user, $timeStamp){
+	function GetAllNotes($boardId, $user){
 		$notes = null;
-		$timeStampCondition = '';
-		if($timeStamp!=null){
-			$timeStampCondition = " and n.AddedOn > '" . $timeStamp . "' ";
-		}		
 		
-		$query = "SELECT n.Id, n.Content FROM notes n where n.BoardId = " . $boardId ;
+		$query = "SELECT n.Id, n.Content, n.AddedOn FROM notes n where n.BoardId = " . $boardId ;
 		if($user != NULL){
-			$query = "SELECT n.Id, n.Content, v.RequirementId FROM notes n LEFT JOIN votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId;
+			$query = "SELECT n.Id, n.Content, n.AddedOn, v.VotedOn, v.RequirementId FROM notes n LEFT JOIN votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId;
 		}
-		$query = $query . $timeStampCondition . ' order by n.AddedOn desc';
+		$query = $query . ' order by n.AddedOn desc';
 		$result = $this->dB->RetreiveQ($query);
 		$count = 0;
 		while ($row = mysql_fetch_array($result)) {
 			$notes[$count]->Id = $row['Id']; 
 			$notes[$count]->Content = $row['Content']; 
+			$notes[$count]->AddedOn = $row['AddedOn']; 
+			$notes[$count]->VotedOn = $row['VotedOn']; 
 			if(!isset($row['RequirementId'])){
 				$notes[$count]->Vote = 0; 
 			}
