@@ -8,13 +8,31 @@ class Notes {
 	var $AddedBy;
 	var $BoardId;
 	var $Vote;
+	var $VotedOn;
 	
-	function Notes($Id, $Content, $AddedOn, $AddedBy, $BoardId, $Vote) {
+	function Notes($Id, $Content, $AddedOn, $AddedBy, $BoardId, $Vote, $VotedOn) {
 		$this->Id = $Id;
 		$this->Content = $Content;
 		$this->AddedBy = $AddedBy;
 		$this->AddedOn = $AddedOn;
 		$this->BoardId = $BoardId;			
+		$this->Vote = $Vote;
+		$this->VotedOn = $VotedOn;
+	}
+}
+
+class Vote {
+	var $Id;
+	var $VotedOn;
+	var $VotedBy;
+	var $NotesId;
+	var $Vote;
+
+	function Vote($Id, $VotedOn, $VotedBy, $NotesId, $Vote){
+		$this->Id = $Id;
+		$this->VotedOn = $VotedOn;
+		$this->VotedBy = $VotedBy;
+		$this->NotesId = $NotesId;
 		$this->Vote = $Vote;
 	}
 }
@@ -29,7 +47,7 @@ class Service {
 	
 	function AddNewNote($content, $addedBy, $addedOn, $boardId) {
 		$this->dB->UpdateQ("insert into Notes(Content, AddedBy, AddedOn, BoardId) values('" . $content . "', '" . $addedBy ."', '" . $addedOn ."'," . $boardId .")");	
-		return new Notes(mysql_insert_id(), $content, $addedOn, $addedBy, $boardId, 0);
+		return new Notes(mysql_insert_id(), $content, $addedOn, $addedBy, $boardId, 0, NULL);
 	}
 	
 	function GetAllNotes($boardId, $user){
@@ -56,6 +74,16 @@ class Service {
 			$count +=1;
 		}		
 		return $notes;
+	}
+	
+	function Vote($noteId, $votedBy, $votedOn, $vote) {
+		$query = "insert into Votes(VotedOn, VotedBy, NotesId, RequirementId) values('" . $votedOn . "', '" . $votedBy ."', " . $noteId ."," . $vote .")";
+		$result = $this->dB->RetreiveQ("select Id from Votes where NotesId=" . $noteId . " and VotedBy = '" . $votedBy . "'");
+		if($row = mysql_fetch_array($result)) {
+			$query = "update Votes set VotedOn = '" . $votedOn . "', RequirementId = " . $vote ." where Id = " . $row['Id'];
+		}
+		$this->dB->UpdateQ($query);	
+		return new Vote(mysql_insert_id(), $votedOn, $votedBy, $noteId, $vote);
 	}
 }	
 ?>

@@ -7,6 +7,7 @@ function Board() {
       		isAnimated: true
     	});
     	add();
+    	vote();
 	}
 	
 	function add(){
@@ -21,14 +22,32 @@ function Board() {
            					$('#loadingNewNoteArea').hide();
                             $('#inputArea').show();
       						container.prepend(CreateItem(data, emailId)).masonry( 'reload' );
+							new Board().vote();
 							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
                         }
              });
     	});
 	}
 	
+	function vote(){
+		$('.voteDropdown').change(function(e){
+			var noteId = $(this).attr('id').replace('voteDropdown','');
+			$.ajax({
+                        async:true,
+        				dataType: "json",
+                        url:'vote.php?NoteId=' + noteId + '&VotedBy=' + emailId + '&Vote=' + $(this).val(),
+                        success:function(data){
+      						// container.prepend(CreateItem(data, emailId)).masonry( 'reload' );
+							// new Board().vote();
+							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
+                        }
+             });
+		});
+	}
+	
 	return {
-		init: init
+		init: init,
+		vote: vote
 	}   
 }
     
@@ -52,6 +71,7 @@ function update(){
                         		}
                         	}
            					$('#container').prepend(html).masonry( 'reload' );
+           					new Board().vote();
 							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
                         }
         });
@@ -75,7 +95,7 @@ function CreateItem(note, isUser){
 		}
 		htmlToRender = htmlToRender 
 			+ '<div class="choice">'
-			+ '<select id="voteDropdown' + note.Id + '">'
+			+ '<select id="voteDropdown' + note.Id + '" class="voteDropdown" >' 
 			+	'<option ' + options[0] + ' >Select a option</option> '
 			+	'<option ' + options[1] + ' >Should have</option> '
 			+	'<option ' + options[2] + ' >Nice to have</option> '
@@ -95,6 +115,7 @@ function CheckIfThisNoteNeedsToBeAdded(note){
 		if(noteElement.attr('data-addedOn')==note.AddedOn){
 			return false;
 		}
+		noteElement.empty().remove();
 	}
 	return true;
 }
