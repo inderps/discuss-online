@@ -7,13 +7,15 @@ class Notes {
 	var $AddedOn;
 	var $AddedBy;
 	var $BoardId;
+	var $Vote;
 	
-	function Notes($Id, $Content, $AddedOn, $AddedBy, $BoardId) {
+	function Notes($Id, $Content, $AddedOn, $AddedBy, $BoardId, $Vote) {
 		$this->Id = $Id;
 		$this->Content = $Content;
 		$this->AddedBy = $AddedBy;
 		$this->AddedOn = $AddedOn;
 		$this->BoardId = $BoardId;			
+		$this->Vote = $Vote;
 	}
 }
 
@@ -27,7 +29,29 @@ class Service {
 	
 	function AddNewNote($content, $addedBy, $addedOn, $boardId) {
 		$this->dB->UpdateQ("insert into Notes(Content, AddedBy, AddedOn, BoardId) values('" . $content . "', '" . $addedBy ."', '" . $addedOn ."'," . $boardId .")");	
-		return new Notes(mysql_insert_id(), $content, $addedOn, $addedBy, $boardId);
+		return new Notes(mysql_insert_id(), $content, $addedOn, $addedBy, $boardId, 0);
+	}
+	
+	function GetAllNotes($boardId, $user){
+		$notes = null;
+		$query = "SELECT Id, Content FROM notes where BoardId = " . $boardId . " order by AddedOn desc";
+		if($user != NULL){
+			$query = "SELECT n.Id, n.Content, v.RequirementId FROM notes n LEFT JOIN votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId . " order by n.AddedOn desc";
+		}
+		$result = $this->dB->RetreiveQ($query);
+		$count = 0;
+		while ($row = mysql_fetch_array($result)) {
+			$notes[$count]->Id = $row['Id']; 
+			$notes[$count]->Content = $row['Content']; 
+			if(!isset($row['RequirementId'])){
+				$notes[$count]->Vote = 0; 
+			}
+			else{
+				$notes[$count]->Vote = $row['RequirementId']; 
+			}
+			$count +=1;
+		}		
+		return $notes;
 	}
 }	
 ?>

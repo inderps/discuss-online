@@ -13,6 +13,7 @@
 <script src="scripts/js/jquery.masonry.min.js"></script>
 <script src="scripts/js/actions.js"></script>
 <script type="text/javascript">
+	var emailId = null;
 	var boardId = '<?php echo $_GET['id']; ?>';
 </script>
 </head> 
@@ -31,7 +32,7 @@
 			else{
 				?>
 				<script type="text/javascript">
-					var emailId = '<?php echo $_SESSION['email']; ?>';
+					emailId = '<?php echo $_SESSION['email']; ?>';
 				</script>
 				<form>
 					<div class="label">Add New Note </div>
@@ -50,29 +51,6 @@
 			Adding Please wait................
 	</div>
 	<div id="container">
-	<div class="item">
-		<div class="feature">
-			Masonry works on a container element with a group of similar child items.
-		</div>
-		<div class="votes">
-			<ul>
-				<li>Should have <span>+1</span></li>
-				<li>Good to have <span>+1</span></li>
-				<li>Not so important <span>+1</span></li>
-				<li>Useless <span>+1</span></li>
-			</ul>
-		</div>
-		<div class="choice">
-			<select>
-				<option>Select your choice</option>
-				<option>Should have</option>
-				<option>Good to have</option>
-				<option>Not so important</option>
-				<option>Useless</option>
-			</select>
-		</div>
-	</div>
-	
 	</div>
 </body> 
 </html> 

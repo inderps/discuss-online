@@ -15,7 +15,7 @@ body {
 }
 
 #loadingNewNoteArea{
-	background-color: #fd3131;
+	background-color: #931a47;
 	padding: 10px;
   	width: 400px;
   	margin-top: 25px;
@@ -23,6 +23,7 @@ body {
 	margin-right: auto;
 	text-align: center;
 	font-size: 20px;
+	font-weight: bold;
 	color: #FFFFFF;
 }
 
@@ -72,13 +73,33 @@ body {
 }
 
 .item{
-	background-color: #fef49c;
 	padding: 10px;
 	width: 280px;
   	margin: 10px;
   	float: left;
 }
 
+.color0 {
+	background-color: #fef49c;
+	color: #000000;
+}
+
+.color1 {
+	background-color: #004fa1;
+	color: #FFFFFF;
+}
+.color2 {
+	background-color: #3097ff;
+	color: #FFFFFF;
+}
+.color3 {
+	background-color: #a6d2ff;
+	color: #000000;
+}
+.color4 {
+	background-color: #bcbec1;
+	color: #000000;
+}
 #note_elements{
 	height: 80px;
 	margin: 0px;

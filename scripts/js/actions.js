@@ -40,7 +40,15 @@ $(document).ready(function () {
 });
 
 function update(){
-		console.log("ss");
-		$('#container').masonry( 'reload' );
+		$.ajax({
+                        async:true,
+                        url:'reload.php?BoardId=' + boardId + '&loggedInUser=' + emailId,
+                        success:function(data){
+           					var notes = $(data);
+           					$('#container').html(notes);
+      						$('#container').masonry( 'reload' );
+							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
+                        }
+        });
    		setTimeout("update()", 3000);
 } 
