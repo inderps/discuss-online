@@ -7,7 +7,7 @@ if($user!='null'){
 	$isGuest = false;
 }
 
-$notes = $service->GetAllNotes(1, $user);
+$notes = $service->GetAllNotes($_GET['BoardId'], $user);
 // echo "<div class='item'>" . $user .  "</div>";
 $data->notes = $notes;
 if($notes!=null){

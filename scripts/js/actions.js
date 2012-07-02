@@ -65,6 +65,8 @@ function update(){
         				dataType: "json",
                         url:'reload.php?BoardId=' + boardId + '&loggedInUser=' + emailId,
                         success:function(data){
+                        	if(data!=null){
+
                         	var html = "";
                         	for(var index in data.notes){
                         		if(CheckIfThisNoteNeedsToBeAdded(data.notes[index])){
@@ -73,7 +75,8 @@ function update(){
                         	}
            					$('#container').prepend(html).masonry( 'reload' );
            					new Board().vote();
-							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );
+							//$('#container').append( $boxes ).masonry( 'prepended', $boxes );                   		
+                        	}
                         }
         });
         var now = new Date();
