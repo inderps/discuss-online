@@ -34,7 +34,7 @@
 				<script type="text/javascript">
 					emailId = '<?php echo $_SESSION['email']; ?>';
 				</script>
-				<form>
+				<form id="add-note-form">
 					<div class="label">Add New Note </div>
 						<div id="note_elements">
 							<textarea class="text" rows="3" id="note"> </textarea>

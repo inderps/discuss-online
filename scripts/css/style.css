@@ -45,6 +45,10 @@ body {
 	margin-right: 10px;
 }
 
+#add-note-form{
+	height: 150px;
+}
+
 .label{
 	color: #000000;
 	text-align: left;
