@@ -53,9 +53,9 @@ class Service {
 	function GetAllNotes($boardId, $user){
 		$notes = null;
 		
-		$query = "SELECT n.Id, n.Content, n.AddedOn FROM notes n where n.BoardId = " . $boardId ;
+		$query = "SELECT n.Id, n.Content, n.AddedOn FROM Notes n where n.BoardId = " . $boardId ;
 		if($user != NULL){
-			$query = "SELECT n.Id, n.Content, n.AddedOn, v.VotedOn, v.RequirementId FROM notes n LEFT JOIN votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId;
+			$query = "SELECT n.Id, n.Content, n.AddedOn, v.VotedOn, v.RequirementId FROM Notes n LEFT JOIN Votes v ON n.Id = v.NotesId and v.VotedBy like '" . $user . "' where n.BoardId = " . $boardId;
 		}
 		$query = $query . ' order by n.AddedOn desc';
 		$result = $this->dB->RetreiveQ($query);
