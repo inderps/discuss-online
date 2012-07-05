@@ -16,13 +16,29 @@
 	var emailId = null;
 	var boardId = '<?php echo $_GET['id']; ?>';
 </script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33085077-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </head> 
 <body> 
+	<div id="header">
+		<span class="title">Online Requirement Gathering - </span> <span class="name"> CRM Solution for Photographers</span>
+	</div>
 	<div id="inputArea">
 		<?php 
 			if(!isset($_SESSION['email'])){
 				?>
-				<form action="" method="post">
+				<form action="" method="post" onsubmit="return SubmitMe(this)">
 					<div class="label">Enter your Email ID to Start Contributing </div>
 					<input name="email" type="text" class="text" />
 					<input type="submit" class="start" value="Start"/>
@@ -35,9 +51,9 @@
 					emailId = '<?php echo $_SESSION['email']; ?>';
 				</script>
 				<form id="add-note-form">
-					<div class="label">Add New Note </div>
+					<div class="label">Suggest a new feature </div>
 						<div id="note_elements">
-							<textarea class="text" rows="3" id="note"> </textarea>
+							<textarea class="text" rows="3" id="note"></textarea>
 							<a href="#">
 								<img id="addItem" src="images/add.png" border="0"/>
 							</a>

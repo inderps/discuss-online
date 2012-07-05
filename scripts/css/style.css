@@ -4,6 +4,28 @@ body {
 	background: url(../../images/bg.jpg) repeat;
 }
 
+#header{
+	margin-bottom: 10px;
+	width: 100%;
+	height: 60px;
+	padding-top: 10px;
+	background-color: #ffc933;
+	font-size: 32px;
+	margin-left: auto; 
+	margin-right: auto;
+	text-align: center;
+	font-family: verdana,arial;
+	font-weight: bold;
+}
+
+#header .title {
+	color: #413d32;
+}
+
+#header .name {
+	color: #645326;
+}
+
 #inputArea{
 	background-color: #c6fab8;
 	padding: 10px;

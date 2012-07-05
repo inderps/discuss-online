@@ -12,6 +12,9 @@ function Board() {
 	
 	function add(){
 		$('#addItem').click(function(){
+			if($('#note').val() == ''){
+				return;
+			}
            $('#inputArea').hide();
            $('#loadingNewNoteArea').show();
              $.ajax({
@@ -120,6 +123,13 @@ function CheckIfThisNoteNeedsToBeAdded(note){
 			return false;
 		}
 		noteElement.empty().remove();
+	}
+	return true;
+}
+
+function SubmitMe(form) {
+	if(form.email.value == '') {
+		return false;
 	}
 	return true;
 }
